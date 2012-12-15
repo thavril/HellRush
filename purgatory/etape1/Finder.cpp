@@ -57,14 +57,3 @@ void		Finder::affTokens()
 	for (int i(0); i < _nbOccurences; i++)
 		std::cout << _token << std::endl;
 }
-
-int			main(int ac, char **av)
-{
-	if (ac < 2)
-		return 0;
-	Finder		*finder = new Finder(av[1]);
-	finder->start("mechant");
-	finder->affTokens();
-
-	return 0;
-}

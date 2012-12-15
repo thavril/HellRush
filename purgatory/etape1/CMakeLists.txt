@@ -7,4 +7,5 @@ add_executable(
 	Machine.hpp
 	Finder.h
 	Finder.cpp
+	main.cpp
 )
