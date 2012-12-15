@@ -14,7 +14,7 @@ int			Finder::findLetter(char c)
 {
 	int i = _token.find(c);
 	if (i == std::string::npos)
-		i = EDGE_MAX;
+		i = EDGE_MAX - 1;
 	return i;
 }
 
@@ -24,13 +24,14 @@ void		Finder::changeState(eAction action, int pos)
 	{
 		case(MA):
 			_currentState = gStateTable[_currentState][pos];
+			break;
 		case(HR):
-			{
-				_nbOccurences++;
-				_currentState = S0;
-			}
+			_nbOccurences++;
+			_currentState = S0;
+			break;
 		case(ACTION_ERROR):
 			_currentState = S0;
+			break;
 	}
 }
 
@@ -42,7 +43,12 @@ int			Finder::start(const char *token)
 	{
 		_currentAction = gActionTable[_currentState][findLetter(_string[i])];
 		changeState(_currentAction, findLetter(_string[i]));
+		if (_currentAction == HR)
+			i--;
 	}
+	_currentAction = gActionTable[_currentState][0];
+	if (_currentAction == HR)
+		_nbOccurences++;
 	return 0;
 }
 
